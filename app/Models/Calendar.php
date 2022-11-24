@@ -9,11 +9,14 @@ class Calendar extends Model
 {
     use HasFactory;
 
-    protected $table = 'calendar';
+    public $table = 'calendar';
+    public $timestamps = false;
 
     protected $fillable = [
         'details',
         'dayId',
         'date',
     ];
+
+
 }

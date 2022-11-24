@@ -39,4 +39,6 @@ Route::controller(GalleryController::class)->group(function () {
 
 Route::controller(CalendarController::class)->group(function () {
     Route::post('getDetailsOfMonth', 'getDetailsOfMonth');
+    Route::post('addDetail', 'addDetail');
+    Route::put('editDetail/{id}', 'editDetail');
 });
