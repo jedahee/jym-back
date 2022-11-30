@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::create('calendar_events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('eventId');
-            $table->unsignedBigInteger('calendarId');
+            $table->string('date');
 
             // Relaciones
-            $table->foreign('eventId')->references('id')->on('events');
-            $table->foreign('calendarId')->references('id')->on('calendar');
+            $table->foreign('eventId')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

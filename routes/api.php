@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CalendarController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\CalendarEventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,4 +43,16 @@ Route::controller(CalendarController::class)->group(function () {
     Route::post('getDetailsOfMonth', 'getDetailsOfMonth');
     Route::post('addDetail', 'addDetail');
     Route::put('editDetail/{id}', 'editDetail');
+});
+
+Route::controller(EventController::class)->group(function () {
+    Route::get('getEvents', 'getEvents');
+    Route::post('addEvent', 'addEvent');
+    Route::delete('delEvent/{id}', 'delEvent');
+});
+
+Route::controller(CalendarEventController::class)->group(function () {
+    Route::get('getCalendarEvents', 'getCalendarEvents');
+    Route::post('addEventCalendar', 'addEventCalendar');
+    Route::delete('delCalendarEvent/{id}', 'delCalendarEvent');
 });
