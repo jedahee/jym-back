@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\CalendarEvent;
+use App\Models\Event;
 use JWTAuth;
 
 class CalendarEventController extends Controller
@@ -70,5 +71,29 @@ class CalendarEventController extends Controller
         $ce->delete();
 
         return response()->json(['success' => true], Response::HTTP_OK);
+    }
+
+    public function eventsMoreUsed() {
+        $calendar_events = CalendarEvent::all();
+
+        $events_used = [];
+        $events_used_filter = [];
+
+        foreach ($calendar_events as $ce) {
+            if (!isset($events_used[$ce["eventId"]])) {
+                $event = Event::find($ce["eventId"]);
+                $events_used[$ce["eventId"]] = ["num_times"=>1, "name"=>$event["name"]];
+            } else {
+                $events_used[$ce["eventId"]]["num_times"] = $events_used[$ce["eventId"]]["num_times"] + 1;
+            }
+        }
+
+        arsort($events_used);
+
+        foreach($events_used as $key=>$data) {
+            $events_used_filter[] = $data;
+        }
+
+        return response()->json(['success' => true, 'events_used'=>$events_used_filter], Response::HTTP_OK);
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CalendarEventController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,11 @@ use App\Http\Controllers\CalendarEventController;
 
 
 Route::controller(AuthController::class)->group(function () {
-    Route::post('login', 'login');
+    Route::get('getUserById/{id}', 'getUserById');
     Route::get('me', 'me');
     Route::get('getAllPhotos/{id}', 'getAllPhotos');
     Route::post('logout', 'logout');
+    Route::post('login', 'login');
     Route::post('getPathImage', 'getPathImage');
     Route::post('setName', 'setName');
     Route::post('setPhoto/{id}', 'setPhoto');
@@ -40,6 +42,7 @@ Route::controller(GalleryController::class)->group(function () {
 });
 
 Route::controller(CalendarController::class)->group(function () {
+    Route::get('getCalendars', 'getCalendars');
     Route::post('getDetailsOfMonth', 'getDetailsOfMonth');
     Route::post('addDetail', 'addDetail');
     Route::put('editDetail/{id}', 'editDetail');
@@ -53,6 +56,11 @@ Route::controller(EventController::class)->group(function () {
 
 Route::controller(CalendarEventController::class)->group(function () {
     Route::get('getCalendarEvents', 'getCalendarEvents');
+    Route::get('eventsMoreUsed', 'eventsMoreUsed');
     Route::post('addEventCalendar', 'addEventCalendar');
     Route::delete('delCalendarEvent/{id}', 'delCalendarEvent');
+});
+
+Route::controller(ChatController::class)->group(function () {
+    Route::post('message', 'message');
 });

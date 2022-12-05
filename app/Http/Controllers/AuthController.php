@@ -74,6 +74,15 @@ class AuthController extends Controller
 
     }
 
+    public function getUserById(Request $request, $id) {
+        try {
+            $user = User::findOrFail($id);
+            return response()->json(['status'=>'success', 'user' => $user], Response::HTTP_OK);
+        } catch (Exception $e) {
+            return response()->json(['status'=>'error', 'msg' => 'El usuario no existe'], Response::HTTP_NOT_FOUND);
+        }
+    }
+
     public function setName(Request $request) {
         $request->validate([
             'id' => 'required|integer',

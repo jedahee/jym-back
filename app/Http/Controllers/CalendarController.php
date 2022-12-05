@@ -95,4 +95,9 @@ class CalendarController extends Controller
         return response()->json($all_details_filtered, Response::HTTP_OK);
 
     }
+
+    public function getCalendars(Request $request) {
+        $calendar = Calendar::all();
+        return response()->json(['calendar' => $calendar], Response::HTTP_OK);
+    }
 }
